@@ -5,6 +5,7 @@ def start_command(update, context):
     game_data['word'] = random_word()
     game_data['spaces'] = ['_'] * len(game_data['word'])
     game_data['life'] = 0
+    game_data['letter_aux'] = []
     #print(game_data['word'])
     game(update, context)
 
@@ -70,7 +71,7 @@ def game(update, context, **kwargs):
                 game_data['spaces'].index('_')
 
             except ValueError:
-                update.message.reply_text('💪 Felicitaciones ganaste! la palabra es {}'.format(game_data['word']))
+                update.message.reply_text('💪 Felicitaciones ganaste! la palabra es {}'.format(game_data['word'].upper()))
                 game_data['state_game'] = False
     else:
         update.message.reply_text('Use /start para iniciar el juego')
