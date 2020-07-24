@@ -1,4 +1,10 @@
-from noname import *
+import logging
+from telegram import (ReplyKeyboardMarkup, ReplyKeyboardRemove, KeyboardButton)
+from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
+import random
+import os
+import time 
+from images import *
 
 def start_command(update, context):
     game_data['state_game'] = True
@@ -6,21 +12,31 @@ def start_command(update, context):
     game_data['spaces'] = ['_'] * len(game_data['word'])
     game_data['life'] = 0
     game_data['letter_aux'] = []
-    #print(game_data['word'])
+    #print(game_data['word']) 
     game(update, context)
 
 
 def help_command(update, context):
-    update.message.reply_text('Help!')
+    update.message.reply_text(
+    ''' Este es un mini-Bot para jugar el famoso juego de adivinanzas el ahorcado.
+
+    Comandos:
+
+    /start - comienza el juego. Se genera una palabra la cual debe adivinar ingresando \
+    letra por letra hasta completarla.
+
+    /stop - termina el juego. Si desea jugar nuevamente, debe ingresar el comando anterior.
+
+    by. @jose6alejandro
+
+    ''')
 
 def stop_command(update, context):
     game_data['state_game'] = False
     update.message.reply_text('Se ha detenido el bot. Use /start para iniciar otra partida')
 
 def random_word():
-    id_word = random.randint(0, len(WORDS) - 1)
-
-    return WORDS[id_word]
+ 	return words[random.randint(0, len(words) - 1)][:-1]
 
 def display_board(update, context, game_data):
     
@@ -77,4 +93,8 @@ def game(update, context, **kwargs):
         update.message.reply_text('Use /start para iniciar el juego')
 
 
-game_data = {'life': 0, 'word' : None, 'spaces' : None, 'letter_aux':[], 'state_game': False}
+game_data = {'state_game': False}
+
+with open('words.csv', 'r') as file:
+    words = file.readlines()
+

@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 # the base code to develop this bot is thanks to python-telegram-bot URL:https://bit.ly/3fDhTAe
 
-from Hangman3_Bot import *
+from hangman3_Bot import *
 
 # Enable logging
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
@@ -16,7 +16,7 @@ def main():
     # Make sure to set use_context=True to use the new context based callbacks
     # Post version 12 this will no longer be necessary
 
-    updater = Updater(" token :) ", use_context=True)
+    updater = Updater("token :)", use_context=True)
     
     # Get the dispatcher to register handlers
     dp = updater.dispatcher
